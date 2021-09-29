@@ -6,28 +6,17 @@
 
 
 }
-
-
-
-
-
-
-    
+  
 body{
   
     margin: 0;
     padding: 0;
-    background: url(1.jpg) ;
+    background: url(/assets/images/1.jpg) ;
    
     height: 100vh;
     font-family:'Libre Baskerville', serif ;
 
 }
-
-
-
-
-
 
 .inicio-box {
     width: 420px;
