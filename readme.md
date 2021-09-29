@@ -1,12 +1,16 @@
 ### Hola 👋, Somos TechnoStar
 #### Proyecto pagina Imperio Musical
-![Proyecto pagina Imperio Musical]
 
-Este proyecto esta siendo desarrollado por: 
-Andrés Felipe Niño
-Daniela Leguizamo
-Angie Vanessa Vargas
-Diego Franco
+Este proyecto esta siendo desarrollado por:
+
+  * **Andrés Felipe Niño**
+
+  * **Daniela Leguizamo**
+
+  * **Angie Vanessa Vargas**
+
+  * **Diego Franco**
+
 
 Habilidades: REACT / JS / HTML / CSS
 
