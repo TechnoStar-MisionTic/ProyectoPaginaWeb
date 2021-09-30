@@ -1,6 +1,6 @@
 ### Hola 👋, Somos TechnoStar
 #### Proyecto pagina Imperio Musical
-![Imperio Musical](https://github.com/TechnoStar-MisionTic/ProyectoPaginaWeb/blob/main/assets/images/1.jpg)
+![Imperio Musical](https://github.com/TechnoStar-MisionTic/ProyectoPaginaWeb/blob/main/assets/images/banner.png)
 
 Este proyecto esta siendo desarrollado por:
 
