@@ -1,6 +1,7 @@
 ### Hola 👋, Somos TechnoStar
 #### Proyecto pagina Imperio Musical
 ![Imperio Musical](https://arturssmirnovs.github.io/github-profile-readme-generator/images/banner.png)
+
 Este proyecto esta siendo desarrollado por:
 
   * **Andrés Felipe Niño**
