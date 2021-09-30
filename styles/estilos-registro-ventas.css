@@ -1,0 +1,87 @@
+/*
+Quita estilo a las lista
+*/
+ul{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+span{
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+    color: #efb810;
+    justify-content: center;
+    background-color: black;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    background: url(/assets/images/1.jpg);
+    font-family:'Libre Baskerville', serif ;
+}
+
+.colorFont{
+    color: #efb810;
+    font-size: x-large;
+}
+
+.navBar{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.911);
+    border-bottom: 1px solid #efb810;
+    box-shadow: 1px 3px black;
+}
+
+.navBar > li{
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    width: 45px;
+    border-radius: 50%;
+    
+}
+
+.button{
+    background-color: black;
+    color: #efb810;
+    border: 0px;
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-weight: bolder;
+}
+
+.mainButton:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.mainButton{
+    box-shadow: 1.5px 1.5px 2px #efb810;
+}
+
+.formulario{
+    padding: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.form{
+    margin: 0px auto;
+    width: 200px;
+    height: 350px;
+    padding-top: 100px;
+    background-color: #efb71080;
+}
+
+.inputs{
+    padding: 5px;
+    margin: 3px;
+}
+

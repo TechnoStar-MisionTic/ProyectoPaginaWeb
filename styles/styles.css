@@ -21,7 +21,7 @@ body{
 .inicio-box {
     width: 420px;
     height: 520px;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.911);
     top: 50%;
     left: 50%;
     position:absolute;
