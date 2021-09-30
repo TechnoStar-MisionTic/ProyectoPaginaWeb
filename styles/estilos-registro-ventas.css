@@ -7,9 +7,13 @@ ul{
     margin: 0px;
 }
 
-h2{
+span{
+    display: flex;
     padding: 0px;
     margin: 0px;
+    color: #efb810;
+    justify-content: center;
+    background-color: black;
 }
 
 body{
@@ -26,8 +30,8 @@ body{
 
 .navBar{
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
+    justify-content: space-around;
+    padding: 10px;
     background-color: rgba(0, 0, 0, 0.911);
     border-bottom: 1px solid #efb810;
     box-shadow: 1px 3px black;
@@ -59,7 +63,25 @@ body{
 }
 
 .mainButton{
-    box-shadow: 1.5px 1.5px #efb810;
+    box-shadow: 1.5px 1.5px 2px #efb810;
 }
 
+.formulario{
+    padding: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.form{
+    margin: 0px auto;
+    width: 200px;
+    height: 350px;
+    padding-top: 100px;
+    background-color: #efb71080;
+}
+
+.inputs{
+    padding: 5px;
+    margin: 3px;
+}
 
