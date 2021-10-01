@@ -1,0 +1,88 @@
+:root {
+  --oro: #efb810;
+  --blanco: #fff;
+  --negro: #222;
+  --plateado: #c0c0c0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: url(/src/media/images/fondo.jpg);
+
+  height: 100vh;
+  font-family: "Libre Baskerville", serif;
+}
+
+.inicio-box {
+  width: 420px;
+  height: 520px;
+  background-color: rgba(0, 0, 0, 0.911);
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  padding: 70px 30px;
+}
+.inicio-box .logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  position: absolute;
+  top: -50px;
+  left: calc(50% - 50px);
+}
+.inicio-box h2 {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 28px;
+  font-family: "Libre Baskerville", serif;
+  color: #efb810;
+}
+
+.inicio-box label {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  display: block;
+}
+.inicio-box input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.inicio-box input[type="text"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+.inicio-box input[type="password"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+.inicio-box input[type="submit"] {
+  border: none;
+  outline: none;
+  height: 40px;
+  background: #efb810;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 20px;
+}
+.inicio-box a {
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 20px;
+  color: darkgray;
+  text-align: center;
+}
