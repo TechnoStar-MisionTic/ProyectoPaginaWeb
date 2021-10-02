@@ -79,6 +79,11 @@ body {
   font-size: 18px;
   border-radius: 20px;
 }
+
+.inicio-box input[type="submit"]:hover {
+  cursor: pointer;
+}
+
 .inicio-box a {
   text-decoration: none;
   font-size: 12px;

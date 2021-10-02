@@ -19,7 +19,7 @@ span{
 body{
     margin: 0px;
     padding: 0px;
-    background: url(/assets/images/1.jpg);
+    background: url(/src/media/images/fondo.jpg);
     font-family:'Libre Baskerville', serif ;
 }
 
@@ -66,22 +66,21 @@ body{
     box-shadow: 1.5px 1.5px 2px #efb810;
 }
 
-.formulario{
-    padding: 30px;
-    display: flex;
-    justify-content: space-around;
-}
-
 .form{
+    display: flex;
     margin: 0px auto;
     width: 200px;
     height: 350px;
-    padding-top: 100px;
-    background-color: #efb71080;
+    padding: 100px;
+    background-color: #382f1680;
 }
 
 .inputs{
     padding: 5px;
     margin: 3px;
+}
+
+.titulosH1{
+    color: red;
 }
 
