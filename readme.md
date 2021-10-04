@@ -10,9 +10,6 @@ Este proyecto esta siendo desarrollado por:
 
   * **Angie Vanessa Vargas**
 
-  * **Diego Franco**
-
-
 Habilidades: REACT / JS / HTML / CSS
 
 
