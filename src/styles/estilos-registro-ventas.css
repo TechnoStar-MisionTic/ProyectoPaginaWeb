@@ -64,32 +64,34 @@ body{
     box-shadow: 1.5px 1.5px 2px #efb810;
 }
 
-.flexConteinerForm{
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.938);
-    margin: 30px 480px 0px 480px;
-    padding: 0px 40px 40px 40px;
-    border-radius: 10px;
-    position: relative;
-    right: 30%;
-    border: 1px solid #efb810;
-}
-
 .flexContainerTable{
     display: flex;
+    flex-direction: column;
     border: 1px solid #efb810;
     border-radius: 10px;
     margin: 30px;
     width: 740px;
     position: absolute;
     left: 36%;
-    top: 80px;
+    top: 66px;
 }
 
 .table{
     background-color: rgba(0, 0, 0, 0.911);
     border-radius: 10px;
+}
+
+.caption{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.911);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border: 1px solid #efb810;
+}
+
+.th{
+    color: white;
+    background-color: rgba(220, 20, 60, 0.363);
 }
 
 .td{
@@ -100,23 +102,49 @@ body{
     text-align: center;
 }
 
-.th{
-    color: white;
-    background-color: rgba(220, 20, 60, 0.363);
+select{
+    background-image: initial;
+    background-color: #efb710c2;
+    border-radius: 7px;
+    padding: 4px 0px 4px 0px;
 }
 
-.caption{
-    color: white;
+.buttonTable{
     background-color: rgba(0, 0, 0, 0.911);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    color: white;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     border: 1px solid #efb810;
+    padding: 4px;
 }
+
+.buttonTable:hover{
+    cursor: pointer;
+}
+
+.flexContainerForm{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.938);
+    margin: 30px 480px 0px 40px;
+    padding: 0px 40px 20px 40px;
+    border-radius: 10px;
+    position: absolute;
+    right: 34%;
+    border: 1px solid #efb810;
+    box-shadow: 1.4px 1.4px 2px #efb810;
+}
+
+.flexContainerFormVenta{
+    height: 455px;
+    width: 274px;
+}
+
 .formulario{
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    position: relative;
 }
 
 .inputs{
@@ -138,8 +166,12 @@ body{
     background-color: rgb(248, 234, 31);
     width: 85px;
     height: 35px;
-    margin-top: 7px;
+    margin-top: 11px;
     border-radius: 10px;
+}
+
+.buttonForm:hover{
+    cursor: pointer;
 }
 .titulosH1{
     color: red;
