@@ -1,7 +1,7 @@
 
-function InputText({titulo}){
+function InputText({titulo, opcion}){
     return(
-        <input type="text" class="inputs" placeholder={titulo} />
+        <input type="text" class="inputs" placeholder={titulo} aria-required="true"/>
     )
 }
 
