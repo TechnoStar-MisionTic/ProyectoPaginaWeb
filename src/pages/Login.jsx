@@ -1,10 +1,8 @@
-import "./styles/App.css";
-import logo from "./media/images/logo.jpg"
+import logo from "../media/images/logo.jpg"
 
-function App() {
-  return (
-    <div className="App">
-      <div className="inicio-box">
+function Login(){
+    return(
+        <div className="inicio-box">
         <img className="logo" src={logo} alt="Logo"/>
         <h2> Imperio Musical</h2>
         <label for="E-mail">Usuario</label>
@@ -17,8 +15,7 @@ function App() {
         <a href="#">¿Olvidaste tu contraseña?</a> <br />
         <a href="#">Registrate</a>
       </div>
-    </div>
-  );
+    )
 }
 
-export default App;
+export default Login;
