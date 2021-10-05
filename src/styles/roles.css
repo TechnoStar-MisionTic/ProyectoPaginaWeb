@@ -1,0 +1,131 @@
+:root {
+    --oro: #efb810; /*colores*/
+    --blanco: #fff;
+    --negro: #000;
+    --plateado: #c0c0c0;
+  
+}
+body{
+    margin: 0px;
+    padding: 0px;
+    background-image: url(/src/media/images/fondo.jpg);
+    font-family:'Libre Baskerville', serif ;
+    text-align:left;}    
+
+ul{
+    list-style: none; 
+    padding: 0px;
+    margin: 0px;
+}
+
+.colorFont{
+    color: #efb810;
+    font-size: x-large;
+}
+
+.navBar{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.911);
+    border-bottom: 1px solid #efb810;
+    box-shadow: 1px 3px rgb(0, 0, 0);
+    
+}
+
+.navBar > li{
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    width: 45px;
+    border-radius: 50%;
+    
+}
+
+.button{
+    background-color: rgb(0, 0, 0);
+    color: #efb810;
+    border: 0px;
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-weight: bolder;
+}
+
+.mainButton:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.mainButton{
+    box-shadow: 1.5px 1.5px 2px #efb810;
+}
+.roles { /*cuadro*/
+    width: 420px; /*ancho*/
+    height: 450px; /*Altura*/
+    background-color:rgba(0, 0, 0, 0.911);/*Color del cuadro*/
+    top: 55%; /*Posición del cuadro*/
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 10px 30px; /* Posiciòn del cuadro */
+    border-radius: 8px;
+    border: 1px solid #efb810;
+}
+.roles h2{
+   margin: 0;
+    padding: 0 0 20px; /*relleno*/
+    color: #efb810; 
+    font-family: 'Noto Serif', serif; /*tipo de letra*/
+    font-family: 'Slabo 27px', serif;
+    font-size: 28px; /*tamaño*/
+    text-align: center; /*aliniación*/
+}
+    
+.roles label{
+  margin: 0;
+  padding: 0;
+  font-weight: bold; /*grosor o delgadez*/
+  display: block; /*elemento de block controlar estructuras*/ 
+}
+.roles input {
+    width: 100%;
+    margin-bottom: 20px;
+    border: none; /*estilo de linea de los bordes*/
+    border-bottom: 1px solid #fff; /* borde del boton con color de 1 px*/
+    background: transparent;/*fondo*/
+    outline: none; /*estilo de contorno*/
+    height: 40px; /*altura*/
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+}
+.roles select{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #efb810;
+    color: #000;
+    width: 100px;
+    text-align: center;
+}
+
+.roles input[type="submit"]{
+    all: none;
+    width: 100px;
+    height: 40px;
+    background-color: #efb810;
+    color: black;
+    border-radius: 8px;
+}
+.roles input[type="submit"]:hover{
+    cursor: pointer;
+}
+
+.flexing{
+    display: flex;
+    justify-content: space-around;
+}
