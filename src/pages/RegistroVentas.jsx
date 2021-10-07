@@ -2,6 +2,8 @@ import NavBar from "../components/NavBar.jsx"
 import InputText from "../components/InputText.jsx"
 import InputNumber from "../components/InputNumber"
 import TrRegVentas from "../components/TrRegVentas"
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faSearch, faRedoAlt} from '@fortawesome/free-solid-svg-icons'
 
 function RegistroProductos(){
     return(
@@ -35,16 +37,21 @@ function RegistroProductos(){
                     <table className="table">
                         <caption className="caption">
                             Registro de ventas
+                            <input type="search" name="search" className="search" />
+                            <FontAwesomeIcon icon={faSearch} color="red" className="searchIcon"/>
+                            <FontAwesomeIcon icon={faRedoAlt} color="green" className="reloadIcon"/>
                         </caption>
                         <thead>
                             <tr>
-                                <th className="th">NOMBRE DEL PRODUCTO</th>
-                                <th className="th">ID VENTA</th>
-                                <th className="th">ID PRODUCTO</th>
+                                <th className="th">NOMBRE</th>
+                                <th className="th">IDVENTA</th>
+                                <th className="th">IDPROD</th>
                                 <th className="th">ESTADO</th>
-                                <th className="th">PRECIO UNITARIO</th>
+                                <th className="th">PRECIO/U</th>
                                 <th className="th">CANTIDAD</th>
                                 <th className="th">VALOR FINAL</th>
+                                <th className="th">EDITAR</th>
+                                <th className="th">BORRAR</th>
                             </tr>
                         </thead>
                         
@@ -61,8 +68,6 @@ function RegistroProductos(){
                             <TrRegVentas/>
                         </tbody>
                     </table>
-
-                    <input type="submit" value="Actualizar tabla" className="buttonTable"/>
                     
                 </div>
             </main>
