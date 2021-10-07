@@ -83,7 +83,7 @@ body{
 .table{
     background-color: rgba(0, 0, 0, 0.911);
     border-radius: 10px;
-
+    flex-wrap: wrap;
 }
 
 
@@ -182,16 +182,19 @@ select{
     right: 34%;
     border: 1px solid #efb810;
     box-shadow: 1.4px 1.4px 2px #efb810;
+    flex-wrap: wrap;
 }
 
 .flexContainerFormVenta{
     height: 455px;
     width: 274px;
+    flex-wrap: wrap;
 }
 
 .formulario{
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .inputs{

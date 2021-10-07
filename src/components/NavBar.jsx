@@ -2,7 +2,7 @@ import BotonGenerico from "./BotonGenerico.jsx";
 import logo from "../media/images/logo.jpg"
 import { Link } from "react-router-dom"
 
-function NavBar(){
+const NavBar = () =>{
     return(
         <nav>
             <ul class="colorFont navBar">
@@ -23,5 +23,4 @@ function NavBar(){
         </nav>
     )
 }
-
 export default NavBar;

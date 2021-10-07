@@ -25,6 +25,9 @@ function App() {
           <Route path="/Roles">
             <Roles />
           </Route>
+          <Route path="/">
+            <Login/>
+          </Route>
         </Switch>
       </Router>
     </div>
