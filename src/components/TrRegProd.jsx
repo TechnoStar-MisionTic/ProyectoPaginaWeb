@@ -1,3 +1,8 @@
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faEdit, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+
+
+
 function TrRegProd({nombreP,idProd,precioU,cantidad}){
     return(
         <tr>
@@ -11,6 +16,14 @@ function TrRegProd({nombreP,idProd,precioU,cantidad}){
                     <option value="agotado">No disponible</option>
                 </select>
             </td>
+            
+            <td className="icons">
+                <FontAwesomeIcon icon={faEdit} color="white"/>
+            </td>
+            <td>
+                <FontAwesomeIcon icon={faTrashAlt} color="red"/>
+            </td>
+            
         </tr>
     )
 }

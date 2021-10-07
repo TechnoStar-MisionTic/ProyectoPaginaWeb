@@ -1,3 +1,6 @@
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faEdit, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+
 function TrRegProd({nombreP,idVenta,idProd,precioU,cantidad,valorF}){
     return(
         <tr>
@@ -14,6 +17,12 @@ function TrRegProd({nombreP,idVenta,idProd,precioU,cantidad,valorF}){
             <td className="td">{precioU}</td>
             <td className="td">{cantidad}</td>
             <td className="td">{valorF}</td>
+            <td className="icons">
+                <FontAwesomeIcon icon={faEdit} color="white"/>
+            </td>
+            <td>
+                <FontAwesomeIcon icon={faTrashAlt} color="red"/>
+            </td>
         </tr>                    
     )
 }
