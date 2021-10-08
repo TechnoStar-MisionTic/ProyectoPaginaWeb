@@ -1,4 +1,3 @@
-import NavBar from "../components/NavBar.jsx"
 import InputText from "../components/InputText.jsx"
 import InputNumber from "../components/InputNumber"
 import TrRegProd from "../components/TrRegProd.jsx";
@@ -7,11 +6,7 @@ import {faSearch, faRedoAlt} from '@fortawesome/free-solid-svg-icons'
 
 function RegistroProductos(){
     return(
-        <div>
-            <header>
-                <NavBar/>
-            </header>
-            <main>
+        <>
                 <div className="flexContainerForm">
                     <div>
                         <h2 className="titulosH2">Registro de productos</h2>
@@ -64,9 +59,8 @@ function RegistroProductos(){
                         </tbody>
                     </table>
                 </div>
-            </main>
             <footer></footer>
-        </div>
+        </>
     )
 }
 

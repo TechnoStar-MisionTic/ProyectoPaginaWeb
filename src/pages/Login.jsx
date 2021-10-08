@@ -1,4 +1,6 @@
 import logo from "../media/images/logo.jpg"
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faGoogle} from '@fortawesome/free-brands-svg-icons'
 
 function Login(){
     return(
