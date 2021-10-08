@@ -1,15 +1,12 @@
-import NavBar from "../components/NavBar.jsx"
 import InputText from "../components/InputText.jsx"
 import InputNumber from "../components/InputNumber"
 import TrRegProd from "../components/TrRegProd.jsx";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faSearch, faRedoAlt} from '@fortawesome/free-solid-svg-icons'
 
 function RegistroProductos(){
     return(
-        <div>
-            <header>
-                <NavBar/>
-            </header>
-            <main>
+        <>
                 <div className="flexContainerForm">
                     <div>
                         <h2 className="titulosH2">Registro de productos</h2>
@@ -34,6 +31,9 @@ function RegistroProductos(){
                     <table className="table">
                         <caption className="caption">
                             Listado de productos
+                            <input type="search" name="search" className="search" />
+                            <FontAwesomeIcon icon={faSearch} color="darkblue" className="searchIcon"/>
+                            <FontAwesomeIcon icon={faRedoAlt} color="green" className="reloadIcon"/>
                         </caption>
                         <thead>
                             <tr>
@@ -42,6 +42,8 @@ function RegistroProductos(){
                                 <th className="th">PRECIO UNITARIO</th>
                                 <th className="th">CANTIDAD</th>
                                 <th className="th">ESTADO</th>
+                                <th className="th">EDITAR</th>
+                                <th className="th">BORRAR</th>
                             </tr>
                         </thead>
                         
@@ -53,18 +55,12 @@ function RegistroProductos(){
                             <TrRegProd nombreP="Parlante" idProd="105" precioU="$350.000" cantidad="5"/>
                             <TrRegProd nombreP="Guitarra" idProd="106" precioU="$400.000" cantidad="11"/>
                             <TrRegProd/>
-                            <TrRegProd/>
-                            <TrRegProd/>
-                            <TrRegProd/>
+                            <TrRegProd/>                            
                         </tbody>
                     </table>
-
-                    <input type="submit" value="Actualizar tabla" className="buttonTable"/>
-                    
                 </div>
-            </main>
             <footer></footer>
-        </div>
+        </>
     )
 }
 
