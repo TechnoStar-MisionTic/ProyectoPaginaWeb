@@ -58,6 +58,7 @@ function RegistroProductos(){
                             <TrRegProd/>                            
                         </tbody>
                     </table>
+                    <button type="button">Cargar</button>
                 </div>
             <footer></footer>
         </>

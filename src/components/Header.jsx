@@ -10,7 +10,7 @@ const NavBar = () =>{
                     <ul className="colorFont navBar">
                         <Link to="/Index">
                             <li>
-                                <img src={logo} alt="Logo" class="logo" />
+                                <img src={logo} alt="Logo" className="logo" />
                             </li>
                         </Link>
                         <Link to="/RegistroVentas">
