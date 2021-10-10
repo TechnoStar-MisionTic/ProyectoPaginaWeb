@@ -1,73 +1,216 @@
-import NavBar from "../components/NavBar.jsx"
-import InputText from "../components/InputText.jsx"
-import InputNumber from "../components/InputNumber"
-import TrRegProd from "../components/TrRegProd.jsx";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faSearch, faRedoAlt} from '@fortawesome/free-solid-svg-icons'
+import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSearch,
+  faRedoAlt,
+  faEdit,
+  faTrashAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
-function RegistroProductos(){
-    return(
-        <div>
-            <header>
-                <NavBar/>
-            </header>
-            <main>
-                <div className="flexContainerForm">
-                    <div>
-                        <h2 className="titulosH2">Registro de productos</h2>
-                    </div>
+const productosBD = [
+  {
+    nombreP: "Saxofón",
+    idProd: 101,
+    precioU: 1100300,
+    cantidad: 4,
+  },
+  {
+    nombreP: "Piano",
+    idProd: 102,
+    precioU: 605990,
+    cantidad: 9,
+  },
+  {
+    nombreP: "Flauta",
+    idProd: 103,
+    precioU: 80000,
+    cantidad: 12,
+  },
+  {
+    nombreP: "Microfono",
+    idProd: 104,
+    precioU: 140000,
+    cantidad: 9,
+  },
+  {
+    nombreP: "Parlante",
+    idProd: 105,
+    precioU: 350000,
+    cantidad: 5,
+  },
+  {
+    nombreP: "Guitarra",
+    idProd: 106,
+    precioU: 400000,
+    cantidad: 11,
+  },
+];
+const RegistroProductos = () => {
+  const [productos, setProductos] = useState([]);
+  useEffect(() => {
+    setProductos(productosBD);
+  }, []);
 
-                    <div>
-                        <form className="formulario">
-                            <InputText titulo="Identificador del producto" />
-                            <InputText titulo="Nombre"/>
-                            <InputText titulo="Descripción"/>
-                            <InputNumber titulo="Precio unitario"/>
-                            <InputNumber titulo="Cantidad"/>
-                            <div className="buttonFormContainer">
-                                <input type="reset" value="Reiniciar" className="buttonForm" />
-                                <input type="submit" value="Enviar" className="buttonForm"/>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div className="flexContainerTable">
-                    <table className="table">
-                        <caption className="caption">
-                            Listado de productos
-                            <input type="search" name="search" className="search" />
-                            <FontAwesomeIcon icon={faSearch} color="darkblue" className="searchIcon"/>
-                            <FontAwesomeIcon icon={faRedoAlt} color="green" className="reloadIcon"/>
-                        </caption>
-                        <thead>
-                            <tr>
-                                <th className="th">NOMBRE DEL PRODUCTO</th>
-                                <th className="th">ID PRODUCTO</th>
-                                <th className="th">PRECIO UNITARIO</th>
-                                <th className="th">CANTIDAD</th>
-                                <th className="th">ESTADO</th>
-                                <th className="th">EDITAR</th>
-                                <th className="th">BORRAR</th>
-                            </tr>
-                        </thead>
-                        
-                        <tbody>
-                            <TrRegProd nombreP="Saxofón" idProd="101" precioU="$1'100.300" cantidad="4"/>
-                            <TrRegProd nombreP="Piano" idProd="102" precioU="$605.990" cantidad="9"/>
-                            <TrRegProd nombreP="Flauta" idProd="103" precioU="$80.000" cantidad="12"/>
-                            <TrRegProd nombreP="Microfono" idProd="104" precioU="$140.000" cantidad="9"/>
-                            <TrRegProd nombreP="Parlante" idProd="105" precioU="$350.000" cantidad="5"/>
-                            <TrRegProd nombreP="Guitarra" idProd="106" precioU="$400.000" cantidad="11"/>
-                            <TrRegProd/>
-                            <TrRegProd/>                            
-                        </tbody>
-                    </table>
-                </div>
-            </main>
-            <footer></footer>
+  return (
+    <>
+        <div className="mainContainer">
+            <FormularioProductos agregarProductos={setProductos} listaProductos={productos}/>
+            <TablaProductos listaProductos={productos} />
+            <ToastContainer position="bottom-center" autoClose={3000} />
         </div>
-    )
-}
+    </>
+  );
+};
+
+const FormularioProductos = ({listaProductos,agregarProductos}) => {
+  const [idProducto, setIdProducto] = useState();
+  const [nombre, setNombre] = useState();
+  const [precioU, setPrecioU] = useState();
+  const [cantidad, setCantidad] = useState();
+
+  const enviarDatosBackend = () => {
+    agregarProductos([...listaProductos,{nombreP:nombre,idProd:idProducto,precioU:precioU,cantidad:cantidad}])
+    toast.success("Agregado correctamente");
+  };
+
+  return (
+    <div className="flexContainerForm flexContainerFormVenta">
+      <div>
+        <h2 className="titulosH2">Registro de productos</h2>
+      </div>
+      <div>
+        <form className="formulario formularioProductos">
+          <input
+            type="text"
+            class="inputs"
+            placeholder="Identificador del producto"
+            value={idProducto}
+            onChange={(e) => {
+              setIdProducto(e.target.value);
+            }}
+          />
+          <input
+            type="text"
+            class="inputs"
+            placeholder="Nombre"
+            value={nombre}
+            onChange={(e) => {
+              setNombre(e.target.value);
+            }}
+          />
+          <input
+            type="number"
+            class="inputs"
+            placeholder="Precio unitario"
+            value={precioU}
+            onChange={(e) => {
+              setPrecioU(e.target.value);
+            }}
+          />
+          <input
+            type="number"
+            class="inputs"
+            placeholder="Cantidad"
+            value={cantidad}
+            onChange={(e) => {
+              setCantidad(e.target.value);
+            }}
+          />
+          <div className="buttonFormContainer">
+            <input type="reset" value="Reiniciar" className="buttonForm" />
+            <button
+              type="button"
+              className="buttonForm"
+              onClick={enviarDatosBackend}
+            >
+              Enviar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+const TablaProductos = ({ listaProductos }) => {
+  const [estado, setEstado] = useState(false);
+  useEffect(() => {
+    console.log("Estado lista productos", listaProductos);
+  }, [listaProductos]);
+  return (
+    <div className="flexContainerTable">
+      <table className="table">
+        <caption className="caption">
+          Listado de productos
+          <input type="search" name="search" className="search" />
+          <FontAwesomeIcon
+            icon={faSearch}
+            color="darkblue"
+            className="searchIcon"
+          />
+          <FontAwesomeIcon
+            icon={faRedoAlt}
+            color="green"
+            className="reloadIcon"
+          />
+        </caption>
+        <thead>
+          <tr>
+            <th className="th">NOMBRE</th>
+            <th className="th">ID PRODUCTO</th>
+            <th className="th">PRECIO UNITARIO</th>
+            <th className="th">CANTIDAD</th>
+            <th className="th">ESTADO</th>
+            <th className="th">EDITAR</th>
+            <th className="th">BORRAR</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {listaProductos.map((productos) => {
+            return (
+              <tr>
+                <td className="td">{productos.nombreP}</td>
+                <td className="td">{productos.idProd}</td>
+                <td className="td">{productos.precioU}</td>
+                <td className="td">{productos.cantidad}</td>
+                {estado ? (
+                  <td>
+                    <select name="estado">
+                      <option value="disponible">Disponible</option>
+                      <option value="agotado">No disponible</option>
+                    </select>
+                  </td>
+                ) : (
+                  <td>
+                    <select name="estado" disabled>
+                      <option value="disponible">Disponible</option>
+                      <option value="agotado">No disponible</option>
+                    </select>
+                  </td>
+                )}
+                <td>
+                  <button
+                    type="button"
+                    className="buttonIcon"
+                    onClick={(e) => {
+                      setEstado(!estado);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faEdit} color="white" />
+                  </button>
+                </td>
+                <td>
+                  <FontAwesomeIcon icon={faTrashAlt} color="red" />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
 export default RegistroProductos;
