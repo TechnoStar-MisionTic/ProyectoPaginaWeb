@@ -1,7 +1,7 @@
 
-function InputText({titulo, e}){
+function InputText({titulo}){
     return(
-        <input type="text" onChange={e} class="inputs" placeholder={titulo}/>
+        <input type="text" class="inputs" placeholder={titulo}/>
     )
 }
 

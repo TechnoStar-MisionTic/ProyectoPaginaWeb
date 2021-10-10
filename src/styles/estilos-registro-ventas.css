@@ -57,6 +57,11 @@ body{
     box-shadow: 1.5px 1.5px 2px #efb810;
 }
 
+.mainContainer{
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 500px;
+}
 .flexContainerTable{
     display: flex;
     flex-direction: column;
@@ -65,9 +70,9 @@ body{
     margin: 30px;
     width: 829px;
     max-height: 400px;
-    position: absolute;
-    left: 32%;
-    top: 66px;
+    position: relative;
+    left: 30%;
+    bottom: 506.3px;
     overflow-y: auto;
     flex-wrap: wrap;
 }
@@ -181,23 +186,26 @@ select{
     margin: 30px 480px 0px 40px;
     padding: 0px 40px 20px 40px;
     border-radius: 10px;
-    position: absolute;
-    right: 34%;
+    position: relative;
+    right: 0%;
     border: 1px solid #efb810;
     box-shadow: 1.4px 1.4px 2px #efb810;
     flex-wrap: wrap;
 }
 
 .flexContainerFormVenta{
-    height: 455px;
+    height: 480px;
     width: 274px;
     flex-wrap: wrap;
+}
+
+.flexContainerFormProd{
+    height: 420px;
 }
 
 .formulario{
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
 }
 
 .inputs{
