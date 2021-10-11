@@ -8,11 +8,9 @@ const NavBar = () =>{
             <header>
                 <nav>
                     <ul className="colorFont navBar">
-                        <Link to="/Index">
-                            <li>
-                                <img src={logo} alt="Logo" className="logo" />
-                            </li>
-                        </Link>
+                        <li>
+                            <img src={logo} alt="Logo" className="logo" />
+                        </li>
                         <Link to="/RegistroVentas">
                             <BotonGenerico titulo="Ventas"/>
                         </Link>
@@ -22,7 +20,9 @@ const NavBar = () =>{
                         <Link to ="/Roles">
                             <BotonGenerico titulo="Roles"/>                        
                         </Link>
-                        <BotonGenerico titulo="Cerrar sesión"/>
+                        <Link to="/Index">
+                            <BotonGenerico titulo="Cerrar sesión"/>
+                        </Link>
                     </ul>
                 </nav>
             </header>

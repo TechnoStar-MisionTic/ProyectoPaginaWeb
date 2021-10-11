@@ -1,5 +1,5 @@
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSearch,
@@ -77,85 +77,76 @@ const RegistroVentas = () => {
 };
 
 const FormularioVentas = ({listaVentas,agregarVenta}) => {
-  const [nombre,setNombre] = useState()
-  const [idVenta, setIdVenta] = useState();
-  const [idProducto, setIdProducto] = useState();
-  const [precioU, setPrecioU] = useState();
-  const [cantidad, setCantidad] = useState();
-  const [valorFinal, setValorFinal] = useState();
-
-  const enviarDatosBackend = () => {
-    agregarVenta([...listaVentas,{nombreP:nombre,idVenta:idVenta,idProd:idProducto,precioU:precioU,cantidad:cantidad,valorF:valorFinal}])
-    toast.success("Agregado correctamente");
-  };
+  const form = useRef(null)
+  
+  const submitForm = (e) =>{
+    e.preventDefault();
+    const fd = new FormData(form.current);
+      const nuevoVenta = {};
+      fd.forEach((value,key)=>{
+          nuevoVenta[key]=value;
+      });
+      console.log("datos form",fd)
+      agregarVenta([...listaVentas, nuevoVenta])
+      toast.success("Agregado correctamente");
+  }
   return (
     <div className="flexContainerForm flexContainerFormVenta">
       <div>
         <h2 className="titulosH2">Registro de Ventas</h2>
       </div>
       <div>
-        <form className="formulario">
+        <form className="formulario" ref={form} onSubmit={submitForm}>
           <input
+            name="nombreP"
             type="text"
             className="inputs"
             placeholder="Nombre"
-            value={nombre}
-            onChange={(e) => {
-              setNombre(e.target.value);
-            }}
+            required
           />
           <input
+            name="idVenta"
             type="text"
             className="inputs"
             placeholder="ID venta"
-            value={idVenta}
-            onChange={(e) => {
-              setIdVenta(e.target.value);
-            }}
+            required
           />
           <input
+            name="idProd"
             type="text"
             className="inputs"
             placeholder="ID producto"
-            value={idProducto}
-            onChange={(e) => {
-              setIdProducto(e.target.value);
-            }}
+            required
           />
           <input
+            name="precioU"
             type="number"
             className="inputs"
             placeholder="Precio unitario"
-            value={precioU}
-            onChange={(e) => {
-              setPrecioU(e.target.value);
-            }}
+            min={1}
+            required
           />
           <input
+            name="cantidad"
             type="number"
             className="inputs"
             placeholder="Cantidad"
-            value={cantidad}
-            onChange={(e) => {
-              setCantidad(e.target.value);
-            }}
+            min={1}
+            max={99}
+            required
           />
           <input
+            name="valorF"
             type="number"
             className="inputs"
-            placeholder={valorFinal}
-            value={valorFinal}
-            onChange={(e) => {
-              setValorFinal();
-            }}
+            placeholder="Valor Final"
             disabled
           />
           <div className="buttonFormContainer">
             <input type="reset" value="Reiniciar" className="buttonForm" />
             <button
-              type="button"
+              type="submit"
               className="buttonForm"
-              onClick={enviarDatosBackend}
             >
               Enviar
             </button>

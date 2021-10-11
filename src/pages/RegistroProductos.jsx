@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSearch,
@@ -65,15 +65,20 @@ const RegistroProductos = () => {
 };
 
 const FormularioProductos = ({listaProductos,agregarProductos}) => {
-  const [idProducto, setIdProducto] = useState();
-  const [nombre, setNombre] = useState();
-  const [precioU, setPrecioU] = useState();
-  const [cantidad, setCantidad] = useState();
+  const form= useRef(null)
 
-  const enviarDatosBackend = () => {
-    agregarProductos([...listaProductos,{nombreP:nombre,idProd:idProducto,precioU:precioU,cantidad:cantidad}])
-    toast.success("Agregado correctamente");
-  };
+  const submitForm = (e)=>{
+    e.preventDefault();
+    const fd = new FormData(form.current);
+
+      const nuevoProducto = {};
+      fd.forEach((value,key)=>{
+          nuevoProducto[key]=value;
+      });
+      console.log("datos form",fd)
+      agregarProductos([...listaProductos, nuevoProducto])
+      toast.success("Agregado correctamente");
+  }
 
   return (
     <div className="flexContainerForm flexContainerFormVenta">
@@ -81,49 +86,43 @@ const FormularioProductos = ({listaProductos,agregarProductos}) => {
         <h2 className="titulosH2">Registro de productos</h2>
       </div>
       <div>
-        <form className="formulario formularioProductos">
+        <form ref={form} onSubmit={submitForm} className="formulario formularioProductos">
           <input
-            type="text"
-            class="inputs"
-            placeholder="Identificador del producto"
-            value={idProducto}
-            onChange={(e) => {
-              setIdProducto(e.target.value);
-            }}
-          />
-          <input
+            name="nombreP"
             type="text"
             class="inputs"
             placeholder="Nombre"
-            value={nombre}
-            onChange={(e) => {
-              setNombre(e.target.value);
-            }}
+            required
           />
           <input
+              name="idProd"
+              type="text"
+              class="inputs"
+              placeholder="Identificador del producto"
+              required
+          />
+          <input
+            name="precioU"
             type="number"
             class="inputs"
             placeholder="Precio unitario"
-            value={precioU}
-            onChange={(e) => {
-              setPrecioU(e.target.value);
-            }}
+            min={1}
+            required
           />
           <input
+            name="cantidad"
             type="number"
             class="inputs"
             placeholder="Cantidad"
-            value={cantidad}
-            onChange={(e) => {
-              setCantidad(e.target.value);
-            }}
+            min={1}
+            max={99}
+            required
           />
           <div className="buttonFormContainer">
             <input type="reset" value="Reiniciar" className="buttonForm" />
             <button
-              type="button"
+              type="submit"
               className="buttonForm"
-              onClick={enviarDatosBackend}
             >
               Enviar
             </button>
