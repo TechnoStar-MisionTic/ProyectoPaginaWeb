@@ -8,6 +8,7 @@ import {
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
+import { nanoid } from "nanoid";
 
 const VentasBD = [
   {
@@ -192,7 +193,7 @@ const TablaVentas = ({ listaVentas }) => {
         <tbody>
           {listaVentas.map((ventas) => {
             return (
-              <tr>
+              <tr key={nanoid} className='tr'>
                 <td className="td">{ventas.nombreP}</td>
                 <td className="td">{ventas.idVenta}</td>
                 <td className="td">{ventas.idProd}</td>
