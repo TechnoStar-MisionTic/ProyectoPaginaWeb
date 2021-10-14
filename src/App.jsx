@@ -32,12 +32,12 @@ function App() {
               </Switch>
             </LayoutPrincipal>
           </Route>
-          <Route path={['/Login', '/Index']}>
+          <Route path={['/Login', '/']}>
             <Switch>
               <Route path='/Login'>
                 <Login />
               </Route>
-              <Route path='/Index'>
+              <Route path='/'>
                 <Index/>
               </Route>
             </Switch>

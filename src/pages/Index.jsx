@@ -1,9 +1,12 @@
+import { Link } from "react-router-dom";
 
 const Index = () =>{
     return(
-        <span>
-            INDEX
-        </span>
+        <Link to="/login">
+            <button type="button" className="buttonForm">
+                Iniciar sesión
+            </button>
+        </Link>
     );
 }
 

@@ -118,6 +118,7 @@ body{
 .searchIcon:hover{
     cursor: pointer;
 }
+
 .th{
     color: white;
     background-color: rgba(220, 20, 60, 0.363);
@@ -130,6 +131,11 @@ body{
     background-color: rgba(0, 139, 139, 0.363);
     border-radius: 7px;
     text-align: center;
+}
+
+.tr:hover{
+    cursor: pointer;
+    background-color: rgba(0, 104, 104, 0.658);;
 }
 
 select{
@@ -218,6 +224,16 @@ select{
     font-size: medium;
 }
 
+.inputsEdit{
+    padding: 4px;
+    margin: 6px;
+    width: 78%;
+    height: 1%;
+}
+
+.optionText{
+    color: white;
+}
 .buttonFormContainer{
     display: flex;
     justify-content: space-around;
@@ -234,6 +250,7 @@ select{
 
 .buttonForm:hover{
     cursor: pointer;
+    background-color: #b88a00;
 }
 .titulosH1{
     color: red;
@@ -245,3 +262,39 @@ select{
     margin-bottom: 40px;
 }
 
+.dialog{
+    background-color: rgba(0, 0, 0, 0.774);
+    
+}
+
+.dialogTitle{
+    color: white;
+    font-size: xx-large;
+    margin: 10px;
+}
+
+.dialogContainerButton{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+}
+
+.dialogButton{
+    border-radius: 9px;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 8px;
+    border: none;
+    width: 60px;
+}
+.dialogButton:hover{
+    cursor: pointer;
+}
+.dialogButtonSi{
+    background-color: rgb(17, 187, 17);
+}
+
+.dialogButtonNo{
+    background-color: red;
+}
