@@ -1,4 +1,3 @@
-import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -6,14 +5,18 @@ import {
   faRedoAlt,
   faEdit,
   faTrashAlt,
+  faCheck,
+  faBan,
 } from "@fortawesome/free-solid-svg-icons";
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { nanoid } from "nanoid";
+import { Dialog, Tooltip } from "@material-ui/core";
 
 const VentasBD = [
   {
     nombreP: "Saxofón",
-    idVenta: 1,
+    idVenta: 12345,
     idProd: 101,
     precioU: 1100300,
     cantidad: 1,
@@ -21,7 +24,7 @@ const VentasBD = [
   },
   {
     nombreP: "Piano",
-    idVenta: 2,
+    idVenta: 21412,
     idProd: 102,
     precioU: 605990,
     cantidad: 1,
@@ -29,7 +32,7 @@ const VentasBD = [
   },
   {
     nombreP: "Flauta",
-    idVenta: 3,
+    idVenta: 35643,
     idProd: 103,
     precioU: 80000,
     cantidad: 3,
@@ -37,7 +40,7 @@ const VentasBD = [
   },
   {
     nombreP: "Microfono",
-    idVenta: 4,
+    idVenta: 46543,
     idProd: 104,
     precioU: 140000,
     cantidad: 2,
@@ -45,7 +48,7 @@ const VentasBD = [
   },
   {
     nombreP: "Parlante",
-    idVenta: 5,
+    idVenta: 59654,
     idProd: 105,
     precioU: 350000,
     cantidad: 1,
@@ -53,7 +56,7 @@ const VentasBD = [
   },
   {
     nombreP: "Guitarra",
-    idVenta: 6,
+    idVenta: 61643,
     idProd: 106,
     precioU: 400000,
     cantidad: 2,
@@ -69,7 +72,7 @@ const RegistroVentas = () => {
   return (
     <>
       <div className="mainContainer">
-        <FormularioVentas listaVentas={ventas} agregarVenta={setVentas}/>
+        <FormularioVentas listaVentas={ventas} agregarVenta={setVentas} />
         <TablaVentas listaVentas={ventas} />
         <ToastContainer position="bottom-center" autoClose={3000} />
       </div>
@@ -77,20 +80,155 @@ const RegistroVentas = () => {
   );
 };
 
-const FormularioVentas = ({listaVentas,agregarVenta}) => {
-  const form = useRef(null)
-  
-  const submitForm = (e) =>{
+const FilaVenta = ({ ventas }) => {
+  const [edit, setEdit] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  return (
+    <tr className="tr">
+      {edit ? (
+        <>
+          <td>
+            <input
+              className="inputs inputsEdit"
+              defaultValue={ventas.nombreP}
+            ></input>
+          </td>
+          <td className="td">{ventas.idVenta}</td>
+          <td>
+            <input
+              className="inputs inputsEdit"
+              defaultValue={ventas.idProd}
+            ></input>
+          </td>
+          <td>
+            <select className="optionText" name="estado">
+              <option value="" disabled>
+                Seleccione una opción
+              </option>
+              <option value="entregado">Entregado</option>
+              <option value="pendiente">Pendiente</option>
+              <option value="cancelado">Cancelado</option>
+            </select>
+          </td>
+          <td>
+            <input
+              className="inputs inputsEdit"
+              defaultValue={ventas.precioU}
+            ></input>
+          </td>
+          <td>
+            <input
+              className="inputs inputsEdit"
+              defaultValue={ventas.cantidad}
+            ></input>
+          </td>
+          <td>
+            <input
+              className="inputs inputsEdit"
+              defaultValue={ventas.valorF}
+            ></input>
+          </td>
+          <td>
+            <Tooltip title="Confirmar edicion" arrow>
+              <button
+                type="button"
+                className="buttonIcon"
+                onClick={() => setEdit(!edit)}
+              >
+                <FontAwesomeIcon icon={faCheck} color="white" />
+              </button>
+            </Tooltip>
+          </td>
+          <td>
+            <Tooltip title="Cancelar edición" arrow>
+              <button
+                type="button"
+                className="buttonIcon"
+                onClick={() => setEdit(false)}
+              >
+                <FontAwesomeIcon icon={faBan} color="orange" />
+              </button>
+            </Tooltip>
+          </td>
+        </>
+      ) : (
+        <>
+          <td className="td">{ventas.nombreP}</td>
+          <td className="td">{ventas.idVenta}</td>
+          <td className="td">{ventas.idProd}</td>
+          <td>
+            <select className="optionText" name="estado" disabled>
+              <option value="" disabled>
+                Seleccione una opción
+              </option>
+              <option value="entregado">Entregado</option>
+              <option value="pendiente">Pendiente</option>
+              <option value="cancelado">Cancelado</option>
+            </select>
+          </td>
+          <td className="td">{ventas.precioU}</td>
+          <td className="td">{ventas.cantidad}</td>
+          <td className="td">{ventas.valorF}</td>
+          <td>
+            <Tooltip title="Editar" arrow>
+              <button
+                type="button"
+                className="buttonIcon"
+                onClick={() => setEdit(!edit)}
+              >
+                <FontAwesomeIcon icon={faEdit} color="white" />
+              </button>
+            </Tooltip>
+          </td>
+
+          <td>
+            <Tooltip title="Eliminar" arrow>
+              <button
+                type="button"
+                className="buttonIcon"
+                onClick={() => setOpenDialog(true)}
+              >
+                <FontAwesomeIcon icon={faTrashAlt} color="red" />
+              </button>
+            </Tooltip>
+
+            <Dialog open={openDialog}>
+              <div className="dialog">
+                <h2 className="dialogTitle">
+                  ¿Esta seguro que desea eliminar?
+                </h2>
+                <div className="dialogContainerButton">
+                  <button className="dialogButton dialogButtonSi">Si</button>
+                  <button
+                    className="dialogButton dialogButtonNo"
+                    onClick={() => setOpenDialog(false)}
+                  >
+                    No
+                  </button>
+                </div>
+              </div>
+            </Dialog>
+          </td>
+        </>
+      )}
+    </tr>
+  );
+};
+
+const FormularioVentas = ({ listaVentas, agregarVenta }) => {
+  const form = useRef(null);
+
+  const submitForm = (e) => {
     e.preventDefault();
     const fd = new FormData(form.current);
-      const nuevoVenta = {};
-      fd.forEach((value,key)=>{
-          nuevoVenta[key]=value;
-      });
-      console.log("datos form",fd)
-      agregarVenta([...listaVentas, nuevoVenta])
-      toast.success("Agregado correctamente");
-  }
+    const nuevoVenta = {};
+    fd.forEach((value, key) => {
+      nuevoVenta[key] = value;
+    });
+    console.log("datos form", fd);
+    agregarVenta([...listaVentas, nuevoVenta]);
+    toast.success("Agregado correctamente");
+  };
   return (
     <div className="flexContainerForm flexContainerFormVenta">
       <div>
@@ -145,10 +283,7 @@ const FormularioVentas = ({listaVentas,agregarVenta}) => {
           />
           <div className="buttonFormContainer">
             <input type="reset" value="Reiniciar" className="buttonForm" />
-            <button
-              type="submit"
-              className="buttonForm"
-            >
+            <button type="submit" className="buttonForm">
               Enviar
             </button>
           </div>
@@ -158,13 +293,22 @@ const FormularioVentas = ({listaVentas,agregarVenta}) => {
   );
 };
 const TablaVentas = ({ listaVentas }) => {
-  const [estado, setEstado] = useState(false);
+  const [busqueda, setBusqueda] = useState("");
+  const [ventasFiltradas, setVentasFiltradas] = useState(listaVentas);
+
+  useEffect(()=>{
+    setVentasFiltradas(listaVentas.filter((elemento)=>{
+      return JSON.stringify(elemento)
+      .toLowerCase()
+      .includes(busqueda.toLowerCase());
+    }))
+  },[busqueda,listaVentas])
   return (
     <div className="flexContainerTable">
       <table className="table">
         <caption className="caption">
           Registro de ventas
-          <input type="search" name="search" className="search" />
+          <input type="search" name="search" className="search" onChange={(e)=>setBusqueda(e.target.value)} value={busqueda} placeholder="IDVENTA"/>
           <FontAwesomeIcon
             icon={faSearch}
             color="darkblue"
@@ -191,48 +335,8 @@ const TablaVentas = ({ listaVentas }) => {
         </thead>
 
         <tbody>
-          {listaVentas.map((ventas) => {
-            return (
-              <tr key={nanoid} className='tr'>
-                <td className="td">{ventas.nombreP}</td>
-                <td className="td">{ventas.idVenta}</td>
-                <td className="td">{ventas.idProd}</td>
-                {estado ? (
-                  <td>
-                    <select name="estado">
-                      <option value="entregado">Entregado</option>
-                      <option value="pendiente">Pendiente</option>
-                      <option value="cancelado">Cancelado</option>
-                    </select>
-                  </td>
-                ) : (
-                  <td>
-                    <select name="estado" disabled>
-                      <option value="entregado">Entregado</option>
-                      <option value="pendiente">Pendiente</option>
-                      <option value="cancelado">Cancelado</option>
-                    </select>
-                  </td>
-                )}
-                <td className="td">{ventas.precioU}</td>
-                <td className="td">{ventas.cantidad}</td>
-                <td className="td">{ventas.valorF}</td>
-                <td>
-                  <button
-                    type="button"
-                    className="buttonIcon"
-                    onClick={(e) => {
-                      setEstado(!estado);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faEdit} color="white" />
-                  </button>
-                </td>
-                <td>
-                  <FontAwesomeIcon icon={faTrashAlt} color="red" />
-                </td>
-              </tr>
-            );
+          {ventasFiltradas.map((ventas) => {
+            return <FilaVenta key={nanoid()} ventas={ventas} />;
           })}
         </tbody>
       </table>

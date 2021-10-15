@@ -11,7 +11,7 @@ import {
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { nanoid } from "nanoid";
-import {Dialog, Tooltip} from "@material-ui/core"
+import { Dialog, Tooltip } from "@material-ui/core";
 
 const productosBD = [
   {
@@ -65,30 +65,33 @@ const RegistroProductos = () => {
 
   return (
     <>
-        <div className="mainContainer">
-            <FormularioProductos agregarProductos={setProductos} listaProductos={productos}/>
-            <TablaProductos listaProductos={productos} />
-            <ToastContainer position="bottom-center" autoClose={3000} />
-        </div>
+      <div className="mainContainer">
+        <FormularioProductos
+          agregarProductos={setProductos}
+          listaProductos={productos}
+        />
+        <TablaProductos listaProductos={productos} />
+        <ToastContainer position="bottom-center" autoClose={3000} />
+      </div>
     </>
   );
 };
 
-const FormularioProductos = ({listaProductos,agregarProductos}) => {
-  const form= useRef(null)
+const FormularioProductos = ({ listaProductos, agregarProductos }) => {
+  const form = useRef(null);
 
-  const submitForm = (e)=>{
+  const submitForm = (e) => {
     e.preventDefault();
     const fd = new FormData(form.current);
 
-      const nuevoProducto = {};
-      fd.forEach((value,key)=>{
-          nuevoProducto[key]=value;
-      });
-      console.log("datos form",fd)
-      agregarProductos([...listaProductos, nuevoProducto])
-      toast.success("Agregado correctamente");
-  }
+    const nuevoProducto = {};
+    fd.forEach((value, key) => {
+      nuevoProducto[key] = value;
+    });
+    console.log("datos form", fd);
+    agregarProductos([...listaProductos, nuevoProducto]);
+    toast.success("Agregado correctamente");
+  };
 
   return (
     <div className="flexContainerForm flexContainerFormVenta">
@@ -96,7 +99,11 @@ const FormularioProductos = ({listaProductos,agregarProductos}) => {
         <h2 className="titulosH2">Registro de productos</h2>
       </div>
       <div>
-        <form ref={form} onSubmit={submitForm} className="formulario formularioProductos">
+        <form
+          ref={form}
+          onSubmit={submitForm}
+          className="formulario formularioProductos"
+        >
           <input
             name="nombreP"
             type="text"
@@ -105,11 +112,11 @@ const FormularioProductos = ({listaProductos,agregarProductos}) => {
             required
           />
           <input
-              name="idProd"
-              type="text"
-              class="inputs"
-              placeholder="Identificador del producto"
-              required
+            name="idProd"
+            type="text"
+            class="inputs"
+            placeholder="Identificador del producto"
+            required
           />
           <input
             name="precioU"
@@ -130,10 +137,7 @@ const FormularioProductos = ({listaProductos,agregarProductos}) => {
           />
           <div className="buttonFormContainer">
             <input type="reset" value="Reiniciar" className="buttonForm" />
-            <button
-              type="submit"
-              className="buttonForm"
-            >
+            <button type="submit" className="buttonForm">
               Enviar
             </button>
           </div>
@@ -143,56 +147,65 @@ const FormularioProductos = ({listaProductos,agregarProductos}) => {
   );
 };
 
-const FilaProductos=({productos})=>{
-  const [edit, setEdit] = useState(false)
-  const [openDialog, setOpenDialog]=useState(false)
-  return(
-    <tr className='tr'>
+const FilaProductos = ({ productos }) => {
+  const [edit, setEdit] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  return (
+    <tr className="tr">
       {edit ? (
         <>
-        <td>
-          <input className='inputs inputsEdit' defaultValue={productos.nombreP}>
-          </input>
-        </td>
-        <td>
-          <input className='inputs inputsEdit' defaultValue={productos.idProd}>
-          </input>
-        </td>
-        <td>
-          <input className='inputs inputsEdit' defaultValue={productos.precioU}>
-          </input>
-        </td>
-        <td>
-          <input className='inputs inputsEdit' defaultValue={productos.cantidad}>
-          </input>
-        </td>
-        <td>
-          <select name="estado">
-            <option value="disponible">Disponible</option>
-            <option value="agotado">No disponible</option>
-          </select>
-        </td>
-        <td>
+          <td>
+            <input
+              className="inputs inputsEdit"
+              defaultValue={productos.nombreP}
+            ></input>
+          </td>
+          <td>
+            <input
+              className="inputs inputsEdit"
+              defaultValue={productos.idProd}
+            ></input>
+          </td>
+          <td>
+            <input
+              className="inputs inputsEdit"
+              defaultValue={productos.precioU}
+            ></input>
+          </td>
+          <td>
+            <input
+              className="inputs inputsEdit"
+              defaultValue={productos.cantidad}
+            ></input>
+          </td>
+          <td>
+            <select name="estado">
+              <option value="disponible">Disponible</option>
+              <option value="agotado">No disponible</option>
+            </select>
+          </td>
+          <td>
             <Tooltip title="Confirmar edicion" arrow>
               <button
                 type="button"
                 className="buttonIcon"
-                onClick={()=>setEdit(!edit)}
+                onClick={() => setEdit(!edit)}
               >
                 <FontAwesomeIcon icon={faCheck} color="white" />
               </button>
             </Tooltip>
           </td>
-            <td>
-              <Tooltip title="Cancelar edición" arrow>
-                <button
-                  type="button"
-                  className="buttonIcon"
-                >
-                  <FontAwesomeIcon icon={faBan} color="orange" />
-                </button>
-              </Tooltip>
-            </td>
+          <td>
+            <Tooltip title="Cancelar edición" arrow>
+              <button
+                type="button"
+                className="buttonIcon"
+                onClick={() => setEdit(false)}
+              >
+                <FontAwesomeIcon icon={faBan} color="orange" />
+              </button>
+            </Tooltip>
+          </td>
         </>
       ) : (
         <>
@@ -201,8 +214,8 @@ const FilaProductos=({productos})=>{
           <td className="td">{productos.precioU}</td>
           <td className="td">{productos.cantidad}</td>
           <td>
-            <select className='optionText' name="estado" disabled>
-              <option  value="disponible">Disponible</option>
+            <select className="optionText" name="estado" disabled>
+              <option value="disponible">Disponible</option>
               <option value="agotado">No disponible</option>
             </select>
           </td>
@@ -211,7 +224,7 @@ const FilaProductos=({productos})=>{
               <button
                 type="button"
                 className="buttonIcon"
-                onClick={()=>setEdit(!edit)}
+                onClick={() => setEdit(!edit)}
               >
                 <FontAwesomeIcon icon={faEdit} color="white" />
               </button>
@@ -223,7 +236,7 @@ const FilaProductos=({productos})=>{
               <button
                 type="button"
                 className="buttonIcon"
-                onClick={()=>setOpenDialog(true)}
+                onClick={() => setOpenDialog(true)}
               >
                 <FontAwesomeIcon icon={faTrashAlt} color="red" />
               </button>
@@ -231,27 +244,55 @@ const FilaProductos=({productos})=>{
 
             <Dialog open={openDialog}>
               <div className="dialog">
-                <h2 className="dialogTitle">¿Esta seguro que desea eliminar?</h2>
-                  <div className="dialogContainerButton">
-                    <button className="dialogButton dialogButtonSi">Si</button>
-                    <button className="dialogButton dialogButtonNo" onClick={()=>setOpenDialog(false)}>No</button>
-                  </div>
+                <h2 className="dialogTitle">
+                  ¿Esta seguro que desea eliminar?
+                </h2>
+                <div className="dialogContainerButton">
+                  <button className="dialogButton dialogButtonSi">Si</button>
+                  <button
+                    className="dialogButton dialogButtonNo"
+                    onClick={() => setOpenDialog(false)}
+                  >
+                    No
+                  </button>
+                </div>
               </div>
             </Dialog>
           </td>
         </>
       )}
     </tr>
-  )
-}
+  );
+};
 const TablaProductos = ({ listaProductos }) => {
+  const [busqueda, setBusqueda] = useState("");
+  const [productosFiltrados, setProductosFiltrados] = useState([
+    listaProductos,
+  ]);
+
+  useEffect(() => {
+    setProductosFiltrados(
+      listaProductos.filter((elemento) => {
+        return JSON.stringify(elemento)
+          .toLowerCase()
+          .includes(busqueda.toLowerCase());
+      })
+    );
+  }, [busqueda, listaProductos]);
 
   return (
     <div className="flexContainerTable">
       <table className="table">
         <caption className="caption">
           Listado de productos
-          <input type="search" name="search" className="search" />
+          <input
+            type="search"
+            name="search"
+            className="search"
+            onChange={(e) => setBusqueda(e.target.value)}
+            value={busqueda}
+            placeholder="Nombre"
+          />
           <FontAwesomeIcon
             icon={faSearch}
             color="darkblue"
@@ -276,10 +317,8 @@ const TablaProductos = ({ listaProductos }) => {
         </thead>
 
         <tbody>
-          {listaProductos.map((productos) => {
-            return (
-              <FilaProductos key={nanoid()} productos={productos}/>
-            );
+          {productosFiltrados.map((productos) => {
+            return <FilaProductos key={nanoid()} productos={productos} />;
           })}
         </tbody>
       </table>
