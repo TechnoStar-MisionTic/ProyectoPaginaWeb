@@ -12,56 +12,24 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { nanoid } from "nanoid";
 import { Dialog, Tooltip } from "@material-ui/core";
+import { obtenerProductos } from "../utils/api";
+import axios from "axios";
 
-const productosBD = [
-  {
-    nombreP: "Saxofón",
-    idProd: 101,
-    precioU: 1100300,
-    cantidad: 4,
-  },
-  {
-    nombreP: "Piano",
-    idProd: 102,
-    precioU: 605990,
-    cantidad: 9,
-  },
-  {
-    nombreP: "Flauta",
-    idProd: 103,
-    precioU: 80000,
-    cantidad: 12,
-  },
-  {
-    nombreP: "Microfono",
-    idProd: 104,
-    precioU: 140000,
-    cantidad: 9,
-  },
-  {
-    nombreP: "Parlante",
-    idProd: 105,
-    precioU: 350000,
-    cantidad: 5,
-  },
-  {
-    nombreP: "Guitarra",
-    idProd: 106,
-    precioU: 400000,
-    cantidad: 11,
-  },
-  {
-    nombreP: "Parlante",
-    idProd: 105,
-    precioU: 350000,
-    cantidad: 5,
-  },
-];
 const RegistroProductos = () => {
   const [productos, setProductos] = useState([]);
+  const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
+  const [actulizarTabla, setActulizarTabla] = useState(true);
   useEffect(() => {
-    setProductos(productosBD);
-  }, []);
+    console.log("consulta", ejecutarConsulta);
+    if (ejecutarConsulta) {
+      obtenerProductos(setProductos, setEjecutarConsulta);
+    }
+  }, [ejecutarConsulta]);
+
+  useEffect(() => {
+    //obtener lista de vehículos desde el backend
+    setEjecutarConsulta(true);
+  }, [actulizarTabla]);
 
   return (
     <>
@@ -69,18 +37,24 @@ const RegistroProductos = () => {
         <FormularioProductos
           agregarProductos={setProductos}
           listaProductos={productos}
+          setActulizarTabla={setActulizarTabla}
+          actulizarTabla={actulizarTabla}
         />
-        <TablaProductos listaProductos={productos} />
+        <TablaProductos
+          setActulizarTabla={setActulizarTabla}
+          listaProductos={productos}
+          setEjecutarConsulta={setEjecutarConsulta}
+        />
         <ToastContainer position="bottom-center" autoClose={3000} />
       </div>
     </>
   );
 };
 
-const FormularioProductos = ({ listaProductos, agregarProductos }) => {
+const FormularioProductos = ({ setActulizarTabla, actulizarTabla }) => {
   const form = useRef(null);
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     const fd = new FormData(form.current);
 
@@ -88,9 +62,30 @@ const FormularioProductos = ({ listaProductos, agregarProductos }) => {
     fd.forEach((value, key) => {
       nuevoProducto[key] = value;
     });
-    console.log("datos form", fd);
-    agregarProductos([...listaProductos, nuevoProducto]);
-    toast.success("Agregado correctamente");
+
+    const options = {
+      method: "POST",
+      url: "http://localhost:5000/registroProductos/nuevo",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        nombreP: nuevoProducto.nombreP,
+        idProd: nuevoProducto.idProd,
+        precioU: nuevoProducto.precioU,
+        cantidad: nuevoProducto.cantidad,
+      },
+    };
+
+    await axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        toast.success("Vehículo agregado con éxito");
+      })
+      .catch(function (error) {
+        console.error(error);
+        toast.error("Error creando un vehículo");
+      });
+    setActulizarTabla(!actulizarTabla);
   };
 
   return (
@@ -147,9 +142,56 @@ const FormularioProductos = ({ listaProductos, agregarProductos }) => {
   );
 };
 
-const FilaProductos = ({ productos }) => {
+const FilaProductos = ({ productos, setEjecutarConsulta }) => {
   const [edit, setEdit] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+  const [infoNuevoProducto, setInfoNuevoProducto] = useState({
+    nombreP: productos.nombreP,
+    idProd: productos.idProd,
+    precioU: productos.precioU,
+    cantidad: productos.cantidad,
+  });
+
+  const actualizarProducto = async() => {
+    const options = {
+      method: "PATCH",
+      url: "http://localhost:5000/registroProductos/editar",
+      headers: { "Content-Type": "application/json" },
+      data: {...infoNuevoProducto,id:productos._id},
+    };
+
+    await axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        toast.success('Vehículo modificado con éxito');
+        setEdit(false);
+        setEjecutarConsulta(true);
+      })
+      .catch(function (error) {
+        toast.error('Error modificando el vehículo');
+        console.error(error);
+      });
+  };
+
+  const eliminarProducto = async() =>{
+    const options = {
+      method: 'DELETE',
+      url: 'http://localhost:5000/registroProductos/eliminar',
+      headers: {'Content-Type': 'application/json'},
+      data: {id: productos._id}
+    };
+    
+    await axios.request(options).then(function (response) {
+      console.log(response.data);
+      toast.success('vehículo eliminado con éxito');
+        setEjecutarConsulta(true);
+    }).catch(function (error) {
+      toast.error('Error eliminando el vehículo');
+      console.error(error);
+    });
+    setOpenDialog(true);
+  }
   return (
     <tr className="tr">
       {edit ? (
@@ -189,7 +231,7 @@ const FilaProductos = ({ productos }) => {
               <button
                 type="button"
                 className="buttonIcon"
-                onClick={() => setEdit(!edit)}
+                onClick={() => actualizarProducto()}
               >
                 <FontAwesomeIcon icon={faCheck} color="white" />
               </button>
@@ -248,7 +290,7 @@ const FilaProductos = ({ productos }) => {
                   ¿Esta seguro que desea eliminar?
                 </h2>
                 <div className="dialogContainerButton">
-                  <button className="dialogButton dialogButtonSi">Si</button>
+                  <button className="dialogButton dialogButtonSi" onClick={()=>eliminarProducto()}>Si</button>
                   <button
                     className="dialogButton dialogButtonNo"
                     onClick={() => setOpenDialog(false)}
@@ -264,7 +306,7 @@ const FilaProductos = ({ productos }) => {
     </tr>
   );
 };
-const TablaProductos = ({ listaProductos }) => {
+const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
   const [busqueda, setBusqueda] = useState("");
   const [productosFiltrados, setProductosFiltrados] = useState([
     listaProductos,
@@ -318,7 +360,13 @@ const TablaProductos = ({ listaProductos }) => {
 
         <tbody>
           {productosFiltrados.map((productos) => {
-            return <FilaProductos key={nanoid()} productos={productos} />;
+            return (
+              <FilaProductos
+                key={nanoid()}
+                productos={productos}
+                setEjecutarConsulta={setEjecutarConsulta}
+              />
+            );
           })}
         </tbody>
       </table>
