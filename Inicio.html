@@ -25,10 +25,10 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     
-    <link rel="stylesheet" href="<link rel = "preconnect" href = "https://fonts.googleapis.com">
+    <link rel = "preconnect" href = "https://fonts.googleapis.com">
     <link rel = "preconnect" href = "https://fonts.gstatic.com" crossorigin>
     <link href = "https: //fonts.googleapis.com/css2? family = Libre + Baskerville: wght @ 700 & display = swap "rel =" stylesheet ">
-    <link href="src/inicio.css" rel="stylesheet">
+    <link rel="stylesheet"href="src/styles/App.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="shortcut icon" href="src/media/images/favicon.png">
@@ -36,18 +36,27 @@
     <script src="https://kit.fontawesome.com/b889bd2a0b.js" crossorigin="anonymous"></script>
     <title>Imperio Musical</title>
   </head>
-  <body>
+  <body background="fondo.jpg">
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <div class="inicio-box">
+      <img src="src/media/images/logo.png" alt="logo">
+       <h2>Inicia Sección</h2>
+      <form >
+       
+        <input type="email" placeholder="Usuario"> <br>
+       
+        <input type="password" placeholder="Contraseña"> <br>
+        <a href="registro-ventas.html">Ingresar</a> <br>
+        <a href="https://myaccount.google.com/">Ingresa con google</a>
+        <h5>¿No tienes cuenta?<a class="registro" href="registro-de-usuarios.html">Registrate</a> </h5>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+
+
+      </form>
+
+
+    </div>
+  
   </body>
 </html>
