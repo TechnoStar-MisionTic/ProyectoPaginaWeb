@@ -1,0 +1,47 @@
+:root{
+--oro: #FFD700;
+--negro: #000;
+--blanco: #fff;
+
+}
+
+body{
+    background:url(final.png) no-repeat center center fixed;
+    background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vhS;
+    text-align: center;
+
+}
+h1{
+    font-size: 120px;
+    text-align: center;
+    color: #FFD700;
+    font-family: 'Lora', serif;
+}
+p{
+   text-align: center;
+    color: #fff;
+    font-size: 30px;
+ }
+ a{
+    color: #FFD700;
+    font-size: 25px;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    border: 1px solid #FFD700;
+    border-radius: 20px;
+    padding: 10px 50px;
+
+ }
+ a:hover{
+     background: #000;
+ }
