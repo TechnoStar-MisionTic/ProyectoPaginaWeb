@@ -12,77 +12,94 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { nanoid } from "nanoid";
 import { Dialog, Tooltip } from "@material-ui/core";
+import { obtenerVentas } from "../utils/api";
+import axios from "axios";
 
-const VentasBD = [
-  {
-    nombreP: "Saxofón",
-    idVenta: 12345,
-    idProd: 101,
-    precioU: 1100300,
-    cantidad: 1,
-    valorF: 1100300,
-  },
-  {
-    nombreP: "Piano",
-    idVenta: 21412,
-    idProd: 102,
-    precioU: 605990,
-    cantidad: 1,
-    valorF: 605990,
-  },
-  {
-    nombreP: "Flauta",
-    idVenta: 35643,
-    idProd: 103,
-    precioU: 80000,
-    cantidad: 3,
-    valorF: 240000,
-  },
-  {
-    nombreP: "Microfono",
-    idVenta: 46543,
-    idProd: 104,
-    precioU: 140000,
-    cantidad: 2,
-    valorF: 280000,
-  },
-  {
-    nombreP: "Parlante",
-    idVenta: 59654,
-    idProd: 105,
-    precioU: 350000,
-    cantidad: 1,
-    valorF: 350000,
-  },
-  {
-    nombreP: "Guitarra",
-    idVenta: 61643,
-    idProd: 106,
-    precioU: 400000,
-    cantidad: 2,
-    valorF: 800000,
-  },
-];
 const RegistroVentas = () => {
   const [ventas, setVentas] = useState([]);
+  const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
+  const [actulizarTabla, setActulizarTabla] = useState(true);
   useEffect(() => {
-    setVentas(VentasBD);
-  }, []);
+    console.log("consulta", ejecutarConsulta);
+    if (ejecutarConsulta) {
+      obtenerVentas(setVentas, setEjecutarConsulta);
+    }
+  }, [ejecutarConsulta]);
+
+  useEffect(() => {
+    //obtener lista de vehículos desde el backend
+    setEjecutarConsulta(true);
+  }, [actulizarTabla]);
 
   return (
     <>
       <div className="mainContainer">
-        <FormularioVentas listaVentas={ventas} agregarVenta={setVentas} />
-        <TablaVentas listaVentas={ventas} />
+        <FormularioVentas
+          agregarVenta={setVentas}
+          listaVentas={ventas}
+          setActulizarTabla={setActulizarTabla}
+          actulizarTabla={actulizarTabla}
+        />
+        <TablaVentas
+          setActulizarTabla={setActulizarTabla}
+          listaVentas={ventas}
+          setEjecutarConsulta={setEjecutarConsulta}
+        />
         <ToastContainer position="bottom-center" autoClose={3000} />
       </div>
     </>
   );
 };
 
-const FilaVenta = ({ ventas }) => {
+const FilaVenta = ({ ventas, setEjecutarConsulta }) => {
   const [edit, setEdit] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+  const [infoNuevaVenta, setInfoNuevaVenta] = useState({
+    _id: ventas._id,
+    nombreP: ventas.nombreP,
+    idVenta: ventas.idVenta,
+    idProd: ventas.idProd,
+    precioU: ventas.precioU,
+    cantidad: ventas.cantidad,
+  });
+
+  const actualizarVentas = async() => {
+    const options = {
+      method: 'PATCH',
+      url: `http://localhost:5000/registroVentas/${ventas._id}`,
+      headers: {'Content-Type': 'application/json'},
+      data: {...infoNuevaVenta}
+    };
+    
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+      toast.success('Venta modificado con éxito');
+      setEdit(false);
+      setEjecutarConsulta(true);
+    }).catch(function (error) {
+      console.error(error);
+      toast.error('Error modificando el venta');
+    });
+  };
+
+  const eliminarVentas = async() =>{
+    const options = {
+      method: 'DELETE',
+      url: 'http://localhost:5000/registroVentas/eliminar',
+      headers: {'Content-Type': 'application/json'},
+      data: {id: ventas._id}
+    };
+    
+    await axios.request(options).then(function (response) {
+      console.log(response.data);
+      toast.success('Venta eliminado con éxito');
+      setEjecutarConsulta(true);
+    }).catch(function (error) {
+      toast.error('Error eliminando la venta');
+      console.error(error);
+    });
+    setOpenDialog(true);
+  }
   return (
     <tr className="tr">
       {edit ? (
@@ -133,7 +150,7 @@ const FilaVenta = ({ ventas }) => {
               <button
                 type="button"
                 className="buttonIcon"
-                onClick={() => setEdit(!edit)}
+                onClick={() => actualizarVentas()}
               >
                 <FontAwesomeIcon icon={faCheck} color="white" />
               </button>
@@ -198,7 +215,7 @@ const FilaVenta = ({ ventas }) => {
                   ¿Esta seguro que desea eliminar?
                 </h2>
                 <div className="dialogContainerButton">
-                  <button className="dialogButton dialogButtonSi">Si</button>
+                  <button className="dialogButton dialogButtonSi" onClick={()=>eliminarVentas()}>Si</button>
                   <button
                     className="dialogButton dialogButtonNo"
                     onClick={() => setOpenDialog(false)}
@@ -215,20 +232,44 @@ const FilaVenta = ({ ventas }) => {
   );
 };
 
-const FormularioVentas = ({ listaVentas, agregarVenta }) => {
+const FormularioVentas = ({ setActulizarTabla, actulizarTabla }) => {
   const form = useRef(null);
 
-  const submitForm = (e) => {
+  const submitForm = async(e) => {
     e.preventDefault();
     const fd = new FormData(form.current);
+
     const nuevoVenta = {};
     fd.forEach((value, key) => {
       nuevoVenta[key] = value;
     });
-    console.log("datos form", fd);
-    agregarVenta([...listaVentas, nuevoVenta]);
-    toast.success("Agregado correctamente");
+    const options = {
+      method: "POST",
+      url: "http://localhost:5000/registroVentas",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        nombreP: nuevoVenta.nombreP,
+        idVenta:nuevoVenta.idVenta,
+        idProd: nuevoVenta.idProd,
+        precioU: nuevoVenta.precioU,
+        cantidad: nuevoVenta.cantidad,
+        ventaF: nuevoVenta.ventaF
+      },
+    };
+
+    await axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        toast.success("Venta agregado con éxito");
+      })
+      .catch(function (error) {
+        console.error(error);
+        toast.error("Error creando un venta");
+      });
+    setActulizarTabla(!actulizarTabla);
   };
+  
   return (
     <div className="flexContainerForm flexContainerFormVenta">
       <div>
@@ -279,7 +320,6 @@ const FormularioVentas = ({ listaVentas, agregarVenta }) => {
             type="number"
             className="inputs"
             placeholder="Valor Final"
-            disabled
           />
           <div className="buttonFormContainer">
             <input type="reset" value="Reiniciar" className="buttonForm" />
@@ -292,23 +332,34 @@ const FormularioVentas = ({ listaVentas, agregarVenta }) => {
     </div>
   );
 };
-const TablaVentas = ({ listaVentas }) => {
+
+const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
   const [busqueda, setBusqueda] = useState("");
   const [ventasFiltradas, setVentasFiltradas] = useState(listaVentas);
 
-  useEffect(()=>{
-    setVentasFiltradas(listaVentas.filter((elemento)=>{
-      return JSON.stringify(elemento)
-      .toLowerCase()
-      .includes(busqueda.toLowerCase());
-    }))
-  },[busqueda,listaVentas])
+  useEffect(() => {
+    setVentasFiltradas(
+      listaVentas.filter((elemento) => {
+        return JSON.stringify(elemento)
+          .toLowerCase()
+          .includes(busqueda.toLowerCase());
+      })
+    );
+  }, [busqueda, listaVentas]);
+
   return (
     <div className="flexContainerTable">
       <table className="table">
         <caption className="caption">
           Registro de ventas
-          <input type="search" name="search" className="search" onChange={(e)=>setBusqueda(e.target.value)} value={busqueda} placeholder="IDVENTA"/>
+          <input
+            type="search"
+            name="search"
+            className="search"
+            onChange={(e) => setBusqueda(e.target.value)}
+            value={busqueda}
+            placeholder="IDVENTA"
+          />
           <FontAwesomeIcon
             icon={faSearch}
             color="darkblue"
@@ -336,7 +387,9 @@ const TablaVentas = ({ listaVentas }) => {
 
         <tbody>
           {ventasFiltradas.map((ventas) => {
-            return <FilaVenta key={nanoid()} ventas={ventas} />;
+            return <FilaVenta key={nanoid()} ventas={ventas} 
+            setEjecutarConsulta={setEjecutarConsulta}
+            />;
           })}
         </tbody>
       </table>

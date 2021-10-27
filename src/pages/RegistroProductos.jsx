@@ -51,101 +51,11 @@ const RegistroProductos = () => {
   );
 };
 
-const FormularioProductos = ({ setActulizarTabla, actulizarTabla }) => {
-  const form = useRef(null);
-
-  const submitForm = async (e) => {
-    e.preventDefault();
-    const fd = new FormData(form.current);
-
-    const nuevoProducto = {};
-    fd.forEach((value, key) => {
-      nuevoProducto[key] = value;
-    });
-
-    const options = {
-      method: "POST",
-      url: "http://localhost:5000/registroProductos/nuevo",
-      headers: { "Content-Type": "application/json" },
-      data: {
-        nombreP: nuevoProducto.nombreP,
-        idProd: nuevoProducto.idProd,
-        precioU: nuevoProducto.precioU,
-        cantidad: nuevoProducto.cantidad,
-      },
-    };
-
-    await axios
-      .request(options)
-      .then(function (response) {
-        console.log(response.data);
-        toast.success("Vehículo agregado con éxito");
-      })
-      .catch(function (error) {
-        console.error(error);
-        toast.error("Error creando un vehículo");
-      });
-    setActulizarTabla(!actulizarTabla);
-  };
-
-  return (
-    <div className="flexContainerForm flexContainerFormVenta">
-      <div>
-        <h2 className="titulosH2">Registro de productos</h2>
-      </div>
-      <div>
-        <form
-          ref={form}
-          onSubmit={submitForm}
-          className="formulario formularioProductos"
-        >
-          <input
-            name="nombreP"
-            type="text"
-            class="inputs"
-            placeholder="Nombre"
-            required
-          />
-          <input
-            name="idProd"
-            type="text"
-            class="inputs"
-            placeholder="Identificador del producto"
-            required
-          />
-          <input
-            name="precioU"
-            type="number"
-            class="inputs"
-            placeholder="Precio unitario"
-            min={1}
-            required
-          />
-          <input
-            name="cantidad"
-            type="number"
-            class="inputs"
-            placeholder="Cantidad"
-            min={1}
-            max={99}
-            required
-          />
-          <div className="buttonFormContainer">
-            <input type="reset" value="Reiniciar" className="buttonForm" />
-            <button type="submit" className="buttonForm">
-              Enviar
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-};
-
 const FilaProductos = ({ productos, setEjecutarConsulta }) => {
   const [edit, setEdit] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [infoNuevoProducto, setInfoNuevoProducto] = useState({
+    _id: productos._id,
     nombreP: productos.nombreP,
     idProd: productos.idProd,
     precioU: productos.precioU,
@@ -155,21 +65,21 @@ const FilaProductos = ({ productos, setEjecutarConsulta }) => {
   const actualizarProducto = async() => {
     const options = {
       method: "PATCH",
-      url: "http://localhost:5000/registroProductos/editar",
+      url: `http://localhost:5000/registroProductos/${productos._id}`,
       headers: { "Content-Type": "application/json" },
-      data: {...infoNuevoProducto,id:productos._id},
+      data: {...infoNuevoProducto},
     };
 
     await axios
       .request(options)
       .then(function (response) {
         console.log(response.data);
-        toast.success('Vehículo modificado con éxito');
+        toast.success('Producto modificado con éxito');
         setEdit(false);
         setEjecutarConsulta(true);
       })
       .catch(function (error) {
-        toast.error('Error modificando el vehículo');
+        toast.error('Error modificando el producto');
         console.error(error);
       });
   };
@@ -306,6 +216,98 @@ const FilaProductos = ({ productos, setEjecutarConsulta }) => {
     </tr>
   );
 };
+
+const FormularioProductos = ({ setActulizarTabla, actulizarTabla }) => {
+  const form = useRef(null);
+
+  const submitForm = async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form.current);
+
+    const nuevoProducto = {};
+    fd.forEach((value, key) => {
+      nuevoProducto[key] = value;
+    });
+
+    const options = {
+      method: "POST",
+      url: "http://localhost:5000/registroProductos",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        nombreP: nuevoProducto.nombreP,
+        idProd: nuevoProducto.idProd,
+        precioU: nuevoProducto.precioU,
+        cantidad: nuevoProducto.cantidad,
+      },
+    };
+
+    await axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        toast.success("Producto agregado con éxito");
+      })
+      .catch(function (error) {
+        console.error(error);
+        toast.error("Error creando un producto");
+      });
+    setActulizarTabla(!actulizarTabla);
+  };
+
+  return (
+    <div className="flexContainerForm flexContainerFormVenta">
+      <div>
+        <h2 className="titulosH2">Registro de productos</h2>
+      </div>
+      <div>
+        <form
+          ref={form}
+          onSubmit={submitForm}
+          className="formulario formularioProductos"
+        >
+          <input
+            name="nombreP"
+            type="text"
+            class="inputs"
+            placeholder="Nombre"
+            required
+          />
+          <input
+            name="idProd"
+            type="text"
+            class="inputs"
+            placeholder="Identificador del producto"
+            required
+          />
+          <input
+            name="precioU"
+            type="number"
+            class="inputs"
+            placeholder="Precio unitario"
+            min={1}
+            required
+          />
+          <input
+            name="cantidad"
+            type="number"
+            class="inputs"
+            placeholder="Cantidad"
+            min={1}
+            max={99}
+            required
+          />
+          <div className="buttonFormContainer">
+            <input type="reset" value="Reiniciar" className="buttonForm" />
+            <button type="submit" className="buttonForm">
+              Enviar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
   const [busqueda, setBusqueda] = useState("");
   const [productosFiltrados, setProductosFiltrados] = useState([
