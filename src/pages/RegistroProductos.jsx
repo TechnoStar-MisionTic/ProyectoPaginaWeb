@@ -130,12 +130,7 @@ const FilaProductos = ({ productos, setEjecutarConsulta }) => {
               defaultValue={productos.cantidad}
             ></input>
           </td>
-          <td>
-            <select name="estado">
-              <option value="disponible">Disponible</option>
-              <option value="agotado">No disponible</option>
-            </select>
-          </td>
+          
           <td>
             <Tooltip title="Confirmar edicion" arrow>
               <button
@@ -165,12 +160,6 @@ const FilaProductos = ({ productos, setEjecutarConsulta }) => {
           <td className="td">{productos.idProd}</td>
           <td className="td">{productos.precioU}</td>
           <td className="td">{productos.cantidad}</td>
-          <td>
-            <select className="optionText" name="estado" disabled>
-              <option value="disponible">Disponible</option>
-              <option value="agotado">No disponible</option>
-            </select>
-          </td>
           <td>
             <Tooltip title="Editar" arrow>
               <button
@@ -354,7 +343,6 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
             <th className="th">ID PRODUCTO</th>
             <th className="th">PRECIO UNITARIO</th>
             <th className="th">CANTIDAD</th>
-            <th className="th">ESTADO</th>
             <th className="th">EDITAR</th>
             <th className="th">BORRAR</th>
           </tr>

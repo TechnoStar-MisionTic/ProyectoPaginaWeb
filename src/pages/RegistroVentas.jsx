@@ -63,43 +63,49 @@ const FilaVenta = ({ ventas, setEjecutarConsulta }) => {
     cantidad: ventas.cantidad,
   });
 
-  const actualizarVentas = async() => {
+  const actualizarVentas = async () => {
     const options = {
-      method: 'PATCH',
+      method: "PATCH",
       url: `http://localhost:5000/registroVentas/${ventas._id}`,
-      headers: {'Content-Type': 'application/json'},
-      data: {...infoNuevaVenta}
+      headers: { "Content-Type": "application/json" },
+      data: { ...infoNuevaVenta },
     };
-    
-    axios.request(options).then(function (response) {
-      console.log(response.data);
-      toast.success('Venta modificado con éxito');
-      setEdit(false);
-      setEjecutarConsulta(true);
-    }).catch(function (error) {
-      console.error(error);
-      toast.error('Error modificando el venta');
-    });
+
+    axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        toast.success("Venta modificado con éxito");
+        setEdit(false);
+        setEjecutarConsulta(true);
+      })
+      .catch(function (error) {
+        console.error(error);
+        toast.error("Error modificando el venta");
+      });
   };
 
-  const eliminarVentas = async() =>{
+  const eliminarVentas = async () => {
     const options = {
-      method: 'DELETE',
-      url: 'http://localhost:5000/registroVentas/eliminar',
-      headers: {'Content-Type': 'application/json'},
-      data: {id: ventas._id}
+      method: "DELETE",
+      url: "http://localhost:5000/registroVentas/eliminar",
+      headers: { "Content-Type": "application/json" },
+      data: { id: ventas._id },
     };
-    
-    await axios.request(options).then(function (response) {
-      console.log(response.data);
-      toast.success('Venta eliminado con éxito');
-      setEjecutarConsulta(true);
-    }).catch(function (error) {
-      toast.error('Error eliminando la venta');
-      console.error(error);
-    });
+
+    await axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        toast.success("Venta eliminado con éxito");
+        setEjecutarConsulta(true);
+      })
+      .catch(function (error) {
+        toast.error("Error eliminando la venta");
+        console.error(error);
+      });
     setOpenDialog(true);
-  }
+  };
   return (
     <tr className="tr">
       {edit ? (
@@ -215,7 +221,12 @@ const FilaVenta = ({ ventas, setEjecutarConsulta }) => {
                   ¿Esta seguro que desea eliminar?
                 </h2>
                 <div className="dialogContainerButton">
-                  <button className="dialogButton dialogButtonSi" onClick={()=>eliminarVentas()}>Si</button>
+                  <button
+                    className="dialogButton dialogButtonSi"
+                    onClick={() => eliminarVentas()}
+                  >
+                    Si
+                  </button>
                   <button
                     className="dialogButton dialogButtonNo"
                     onClick={() => setOpenDialog(false)}
@@ -235,25 +246,26 @@ const FilaVenta = ({ ventas, setEjecutarConsulta }) => {
 const FormularioVentas = ({ setActulizarTabla, actulizarTabla }) => {
   const form = useRef(null);
 
-  const submitForm = async(e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     const fd = new FormData(form.current);
 
-    const nuevoVenta = {};
+    const nuevaVenta = {};
     fd.forEach((value, key) => {
-      nuevoVenta[key] = value;
+      nuevaVenta[key] = value;
     });
+
     const options = {
       method: "POST",
       url: "http://localhost:5000/registroVentas",
       headers: { "Content-Type": "application/json" },
       data: {
-        nombreP: nuevoVenta.nombreP,
-        idVenta:nuevoVenta.idVenta,
-        idProd: nuevoVenta.idProd,
-        precioU: nuevoVenta.precioU,
-        cantidad: nuevoVenta.cantidad,
-        ventaF: nuevoVenta.ventaF
+        nombreP: nuevaVenta.nombreP,
+        idVenta:nuevaVenta.idVenta,
+        idProd: nuevaVenta.idProd,
+        precioU: nuevaVenta.precioU,
+        cantidad: nuevaVenta.cantidad,
+        valorF: nuevaVenta.valorF,
       },
     };
 
@@ -265,18 +277,18 @@ const FormularioVentas = ({ setActulizarTabla, actulizarTabla }) => {
       })
       .catch(function (error) {
         console.error(error);
-        toast.error("Error creando un venta");
+        toast.error("Error creando un Venta");
       });
     setActulizarTabla(!actulizarTabla);
   };
-  
+
   return (
     <div className="flexContainerForm flexContainerFormVenta">
       <div>
         <h2 className="titulosH2">Registro de Ventas</h2>
       </div>
       <div>
-        <form className="formulario" ref={form} onSubmit={submitForm}>
+        <form ref={form} onSubmit={submitForm} className="formulario">
           <input
             name="nombreP"
             type="text"
@@ -387,9 +399,13 @@ const TablaVentas = ({ listaVentas, setEjecutarConsulta }) => {
 
         <tbody>
           {ventasFiltradas.map((ventas) => {
-            return <FilaVenta key={nanoid()} ventas={ventas} 
-            setEjecutarConsulta={setEjecutarConsulta}
-            />;
+            return (
+              <FilaVenta
+                key={nanoid()}
+                ventas={ventas}
+                setEjecutarConsulta={setEjecutarConsulta}
+              />
+            );
           })}
         </tbody>
       </table>
