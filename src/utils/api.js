@@ -3,7 +3,7 @@ import axios from "axios";
 export const obtenerProductos = async (setProductos, setEjecutarConsulta) => {
   const options = {
     method: "GET",
-    url: "https://whispering-coast-59996.herokuapp.com/RegistroProductos",
+    url: "http://localhost:5000/registroProductos",
   };
 
   await axios
