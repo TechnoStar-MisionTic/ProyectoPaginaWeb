@@ -62,46 +62,49 @@ const FilaProductos = ({ productos, setEjecutarConsulta }) => {
     cantidad: productos.cantidad,
   });
 
-  const actualizarProducto = async() => {
+  const actualizarProducto = async () => {
     const options = {
       method: "PATCH",
       url: `https://whispering-coast-59996.herokuapp.com/RegistroProductos/${productos._id}`,
       headers: { "Content-Type": "application/json" },
-      data: {...infoNuevoProducto},
+      data: { ...infoNuevoProducto },
     };
 
     await axios
       .request(options)
       .then(function (response) {
         console.log(response.data);
-        toast.success('Producto modificado con éxito');
+        toast.success("Producto modificado con éxito");
         setEdit(false);
         setEjecutarConsulta(true);
       })
       .catch(function (error) {
-        toast.error('Error modificando el producto');
+        toast.error("Error modificando el producto");
         console.error(error);
       });
   };
 
-  const eliminarProducto = async() =>{
+  const eliminarProducto = async () => {
     const options = {
-      method: 'DELETE',
-      url: 'https://whispering-coast-59996.herokuapp.com/RegistroProductos/eliminar',
-      headers: {'Content-Type': 'application/json'},
-      data: {id: productos._id}
+      method: "DELETE",
+      url: "https://whispering-coast-59996.herokuapp.com/RegistroProductos/eliminar",
+      headers: { "Content-Type": "application/json" },
+      data: { id: productos._id },
     };
-    
-    await axios.request(options).then(function (response) {
-      console.log(response.data);
-      toast.success('vehículo eliminado con éxito');
+
+    await axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        toast.success("vehículo eliminado con éxito");
         setEjecutarConsulta(true);
-    }).catch(function (error) {
-      toast.error('Error eliminando el vehículo');
-      console.error(error);
-    });
+      })
+      .catch(function (error) {
+        toast.error("Error eliminando el vehículo");
+        console.error(error);
+      });
     setOpenDialog(true);
-  }
+  };
   return (
     <tr className="tr">
       {edit ? (
@@ -130,7 +133,7 @@ const FilaProductos = ({ productos, setEjecutarConsulta }) => {
               defaultValue={productos.cantidad}
             ></input>
           </td>
-          
+
           <td>
             <Tooltip title="Confirmar edicion" arrow>
               <button
@@ -189,7 +192,12 @@ const FilaProductos = ({ productos, setEjecutarConsulta }) => {
                   ¿Esta seguro que desea eliminar?
                 </h2>
                 <div className="dialogContainerButton">
-                  <button className="dialogButton dialogButtonSi" onClick={()=>eliminarProducto()}>Si</button>
+                  <button
+                    className="dialogButton dialogButtonSi"
+                    onClick={() => eliminarProducto()}
+                  >
+                    Si
+                  </button>
                   <button
                     className="dialogButton dialogButtonNo"
                     onClick={() => setOpenDialog(false)}
@@ -304,6 +312,7 @@ const TablaProductos = ({ listaProductos, setEjecutarConsulta }) => {
   ]);
 
   useEffect(() => {
+    console.log("errrroorr")
     setProductosFiltrados(
       listaProductos.filter((elemento) => {
         return JSON.stringify(elemento)
