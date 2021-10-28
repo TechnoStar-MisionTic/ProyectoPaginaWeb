@@ -65,7 +65,7 @@ const FilaProductos = ({ productos, setEjecutarConsulta }) => {
   const actualizarProducto = async() => {
     const options = {
       method: "PATCH",
-      url: `http://localhost:5000/registroProductos/${productos._id}`,
+      url: `https://whispering-coast-59996.herokuapp.com/RegistroProductos/${productos._id}`,
       headers: { "Content-Type": "application/json" },
       data: {...infoNuevoProducto},
     };
@@ -87,7 +87,7 @@ const FilaProductos = ({ productos, setEjecutarConsulta }) => {
   const eliminarProducto = async() =>{
     const options = {
       method: 'DELETE',
-      url: 'http://localhost:5000/registroProductos/eliminar',
+      url: 'https://whispering-coast-59996.herokuapp.com/RegistroProductos/eliminar',
       headers: {'Content-Type': 'application/json'},
       data: {id: productos._id}
     };
@@ -220,7 +220,7 @@ const FormularioProductos = ({ setActulizarTabla, actulizarTabla }) => {
 
     const options = {
       method: "POST",
-      url: "http://localhost:5000/registroProductos",
+      url: "https://whispering-coast-59996.herokuapp.com/RegistroProductos",
       headers: { "Content-Type": "application/json" },
       data: {
         nombreP: nuevoProducto.nombreP,

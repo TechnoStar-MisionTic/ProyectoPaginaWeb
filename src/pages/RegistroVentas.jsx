@@ -66,7 +66,7 @@ const FilaVenta = ({ ventas, setEjecutarConsulta }) => {
   const actualizarVentas = async () => {
     const options = {
       method: "PATCH",
-      url: `http://localhost:5000/registroVentas/${ventas._id}`,
+      url: `https://whispering-coast-59996.herokuapp.com/RegistroVentas/${ventas._id}`,
       headers: { "Content-Type": "application/json" },
       data: { ...infoNuevaVenta },
     };
@@ -88,7 +88,7 @@ const FilaVenta = ({ ventas, setEjecutarConsulta }) => {
   const eliminarVentas = async () => {
     const options = {
       method: "DELETE",
-      url: "http://localhost:5000/registroVentas/eliminar",
+      url: "https://whispering-coast-59996.herokuapp.com/RegistroVentas/eliminar",
       headers: { "Content-Type": "application/json" },
       data: { id: ventas._id },
     };
@@ -257,7 +257,7 @@ const FormularioVentas = ({ setActulizarTabla, actulizarTabla }) => {
 
     const options = {
       method: "POST",
-      url: "http://localhost:5000/registroVentas",
+      url: "https://whispering-coast-59996.herokuapp.com/RegistroVentas",
       headers: { "Content-Type": "application/json" },
       data: {
         nombreP: nuevaVenta.nombreP,
